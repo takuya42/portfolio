@@ -77,36 +77,43 @@ class _HomePageState extends State<HomePage> {
             onNavigate: _navigateToSection,
             onReservationPressed: _openReservation,
           ),
-          SliverList.list(
-            children: [
-              KeyedSubtree(
-                key: _sectionKeys['home'],
-                child: HeroSection(
-                  onContactTap: _openReservation,
+          // This is a short, finite marketing page. Keeping its sections in a
+          // single box sliver gives the viewport a stable scroll extent while
+          // reveal animations rebuild. In particular, this avoids lazy sliver
+          // layout changing the boundary while reversing a wheel gesture at
+          // the bottom of the page.
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                KeyedSubtree(
+                  key: _sectionKeys['home'],
+                  child: HeroSection(
+                    onContactTap: _openReservation,
+                  ),
                 ),
-              ),
-              RevealOnScroll(
-                child: ConceptSection(
-                  sectionKey: _sectionKeys['concept']!,
+                RevealOnScroll(
+                  child: ConceptSection(
+                    sectionKey: _sectionKeys['concept']!,
+                  ),
                 ),
-              ),
-              RevealOnScroll(
-                child: MenuSection(sectionKey: _sectionKeys['menu']!),
-              ),
-              RevealOnScroll(
-                child: StyleSection(sectionKey: _sectionKeys['style']!),
-              ),
-              RevealOnScroll(
-                child: StaffSection(sectionKey: _sectionKeys['staff']!),
-              ),
-              RevealOnScroll(
-                child: AccessSection(sectionKey: _sectionKeys['access']!),
-              ),
-              RevealOnScroll(
-                child: ContactSection(sectionKey: _sectionKeys['contact']!),
-              ),
-              Footer(onNavigate: _navigateToSection),
-            ],
+                RevealOnScroll(
+                  child: MenuSection(sectionKey: _sectionKeys['menu']!),
+                ),
+                RevealOnScroll(
+                  child: StyleSection(sectionKey: _sectionKeys['style']!),
+                ),
+                RevealOnScroll(
+                  child: StaffSection(sectionKey: _sectionKeys['staff']!),
+                ),
+                RevealOnScroll(
+                  child: AccessSection(sectionKey: _sectionKeys['access']!),
+                ),
+                RevealOnScroll(
+                  child: ContactSection(sectionKey: _sectionKeys['contact']!),
+                ),
+                Footer(onNavigate: _navigateToSection),
+              ],
+            ),
           ),
         ],
       ),
