@@ -41,9 +41,11 @@ class HeroSection extends StatelessWidget {
                   )
                 : Row(
                     children: [
-                      Expanded(flex: 8, child: _buildCopy(context)),
-                      const SizedBox(width: 60),
-                      Expanded(flex: 10, child: _buildVisual(context)),
+                      // Give the copy enough room for the intended two-line
+                      // headline without sacrificing its display size.
+                      Expanded(flex: 10, child: _buildCopy(context)),
+                      const SizedBox(width: 44),
+                      Expanded(flex: 9, child: _buildVisual(context)),
                     ],
                   ),
           ),
@@ -67,16 +69,9 @@ class HeroSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 24),
-        RevealOnScroll(
-          delay: const Duration(milliseconds: 100),
-          child: Text(
-            '毎日に、\n少しだけ特別を。',
-            style: context.isMobile
-                ? Theme.of(
-                    context,
-                  ).textTheme.displayLarge?.copyWith(fontSize: 39)
-                : Theme.of(context).textTheme.displayLarge,
-          ),
+        const RevealOnScroll(
+          delay: Duration(milliseconds: 100),
+          child: _HeroTitle(),
         ),
         const SizedBox(height: 24),
         RevealOnScroll(
@@ -163,6 +158,31 @@ class HeroSection extends StatelessWidget {
           child: Container(width: 76, height: 1, color: AppColors.accent),
         ),
       ],
+    );
+  }
+}
+
+class _HeroTitle extends StatelessWidget {
+  const _HeroTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    final style = context.isMobile
+        ? Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 39)
+        : Theme.of(context).textTheme.displayLarge;
+    const title = '毎日に、\n少しだけ特別を。';
+
+    if (context.isMobile) {
+      return Text(title, style: style);
+    }
+
+    // The explicit newline is the only desktop break. Scale down only when a
+    // narrower desktop needs it, rather than allowing the final particle to
+    // wrap onto an unintended third line.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(title, maxLines: 2, softWrap: false, style: style),
     );
   }
 }

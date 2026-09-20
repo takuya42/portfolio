@@ -31,6 +31,35 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('PC幅でHeroタイトルを2行に固定する', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1440, 1000));
+    await tester.pumpWidget(const SalonApp());
+
+    final title = tester.widget<Text>(find.text('毎日に、\n少しだけ特別を。'));
+    expect(title.maxLines, 2);
+    expect(title.softWrap, isFalse);
+  });
+
+  testWidgets('最下部から上方向へスクロールできる', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1440, 1000));
+    await tester.pumpWidget(const SalonApp());
+    final scrollable = find.byType(CustomScrollView);
+
+    await tester.fling(scrollable, const Offset(0, -12000), 10000);
+    await tester.pumpAndSettle();
+    final atBottom = tester.state<ScrollableState>(
+      find.descendant(of: scrollable, matching: find.byType(Scrollable)),
+    );
+    expect(atBottom.position.pixels, atBottom.position.maxScrollExtent);
+
+    await tester.fling(scrollable, const Offset(0, 800), 2500);
+    await tester.pumpAndSettle();
+    expect(
+      atBottom.position.pixels,
+      lessThan(atBottom.position.maxScrollExtent),
+    );
+  });
+
   testWidgets('ヘッダーから予約ページへ遷移して戻れる', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1440, 1000));
     await tester.pumpWidget(const SalonApp());
