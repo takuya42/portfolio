@@ -1,11 +1,11 @@
 {
-  "name": "〇〇接骨院",
-  "short_name": "〇〇接骨院",
+  "name": "〇〇 SALON",
+  "short_name": "〇〇 SALON",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#F7FBFC",
-  "theme_color": "#087EA4",
-  "description": "ポートフォリオ用に制作した架空の接骨院サイトです。",
+  "background_color": "#F7F4EE",
+  "theme_color": "#292724",
+  "description": "ポートフォリオ用に制作した架空の美容室サイトです。",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": []

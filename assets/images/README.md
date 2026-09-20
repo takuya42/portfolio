@@ -1,13 +1,11 @@
-# Image assets
+# Salon image assets
 
-トップページで使用する画像をこのディレクトリで管理します。
+画像ファイルをこのディレクトリに追加し、`lib/core/app_assets.dart` のパスを設定するとプレースホルダーから写真へ切り替わります。
 
-| ファイル | 用途 | 推奨比率 |
+| 推奨ファイル | 用途 | 推奨比率 |
 |---|---|---|
-| `hero.png` | ファーストビュー | 約4:5〜1:1 |
-| `director.png` | 院長紹介 | 約4:5 |
-| `clinic.png` | アクセス・院外観 | 約4:3 |
+| `hero.webp` | メインビジュアル | 4:5〜1:1 |
+| `style_01.webp`〜`style_06.webp` | スタイルギャラリー | 3:4 |
+| `staff_01.webp`〜`staff_03.webp` | スタッフ写真 | 3:4 |
 
-現在は画像ファイルを置かず、`ClinicImage` Widgetがコード製のプレースホルダーを表示します。
-
-実画像を追加するときは、画像をこのディレクトリへ配置し、`lib/core/app_assets.dart`に対応するパスを設定してください。各セクションのWidgetを変更せずに`Image.asset`表示へ切り替わります。
+例: `static const String? hero = 'assets/images/hero.webp';`
