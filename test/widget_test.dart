@@ -58,4 +58,29 @@ void main() {
     expect(find.text('ご希望のメニュー・日時をお選びください。'), findsOneWidget);
     expect(find.text('予約内容を確認する'), findsOneWidget);
   });
+
+  testWidgets('STYLEギャラリーに6種類のスタイルを表示する', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1440, 1000));
+    await tester.pumpWidget(const SalonApp());
+
+    await tester.scrollUntilVisible(
+      find.text('Natural Bob'),
+      500,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+
+    for (final styleName in [
+      'Natural Bob',
+      'Layer Medium',
+      'Soft Wave',
+      'Short Bob',
+      'Long Layer',
+      'Natural Color',
+    ]) {
+      expect(find.text(styleName), findsOneWidget);
+    }
+    expect(find.text('VIEW ALL STYLES'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
 }

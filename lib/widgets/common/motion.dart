@@ -149,9 +149,10 @@ class _HoverLiftState extends State<HoverLift> {
 
 /// Gently zooms media and washes it with a warm translucent overlay on hover.
 class HoverMedia extends StatefulWidget {
-  const HoverMedia({required this.child, super.key});
+  const HoverMedia({required this.child, super.key, this.overlay});
 
   final Widget child;
+  final Widget? overlay;
 
   @override
   State<HoverMedia> createState() => _HoverMediaState();
@@ -181,9 +182,18 @@ class _HoverMediaState extends State<HoverMedia> {
             IgnorePointer(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 350),
-                color: AppColors.accent.withValues(alpha: active ? .08 : 0),
+                color: AppColors.charcoal.withValues(alpha: active ? .26 : 0),
               ),
             ),
+            if (widget.overlay != null)
+              IgnorePointer(
+                child: AnimatedOpacity(
+                  opacity: active ? 1 : 0,
+                  duration: const Duration(milliseconds: 420),
+                  curve: Curves.easeOutCubic,
+                  child: widget.overlay,
+                ),
+              ),
           ],
         ),
       ),
