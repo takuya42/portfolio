@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'core/app_theme.dart';
 import 'core/salon_data.dart';
 import 'pages/home_page.dart';
+import 'pages/reservation_page.dart';
 
 class SalonApp extends StatelessWidget {
   const SalonApp({super.key});
@@ -13,7 +14,10 @@ class SalonApp extends StatelessWidget {
       title: SalonData.name,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const HomePage(),
+      routes: {
+        '/': (_) => const HomePage(),
+        '/reservation': (_) => const ReservationPage(),
+      },
     );
   }
 }

@@ -20,12 +20,14 @@ class Header extends StatefulWidget {
   const Header({
     required this.onMenuPressed,
     required this.onNavigate,
+    required this.onReservationPressed,
     required this.scrollController,
     super.key,
   });
 
   final VoidCallback onMenuPressed;
   final ValueChanged<String> onNavigate;
+  final VoidCallback onReservationPressed;
   final ScrollController scrollController;
 
   @override
@@ -98,7 +100,7 @@ class _HeaderState extends State<Header> {
                     ),
                   const SizedBox(width: 12),
                   FilledButton(
-                    onPressed: () => widget.onNavigate('contact'),
+                    onPressed: widget.onReservationPressed,
                     child: const Text('RESERVATION'),
                   ),
                 ] else
@@ -199,9 +201,14 @@ class _Logo extends StatelessWidget {
 }
 
 class SalonDrawer extends StatelessWidget {
-  const SalonDrawer({required this.onNavigate, super.key});
+  const SalonDrawer({
+    required this.onNavigate,
+    required this.onReservationPressed,
+    super.key,
+  });
 
   final ValueChanged<String> onNavigate;
+  final VoidCallback onReservationPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +235,7 @@ class SalonDrawer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(28),
           child: FilledButton(
-            onPressed: () => onNavigate('contact'),
+            onPressed: onReservationPressed,
             child: const Text('WEB RESERVATION'),
           ),
         ),
