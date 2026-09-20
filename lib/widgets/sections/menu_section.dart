@@ -28,46 +28,49 @@ class MenuSection extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 850),
             child: Column(
               children: [
-                for (final item in SalonData.menu)
-                  HoverLift(
-                    borderRadius: 0,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 24,
-                        horizontal: 10,
-                      ),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: AppColors.border),
+                for (final (index, item) in SalonData.menu.indexed)
+                  RevealOnScroll(
+                    delay: Duration(milliseconds: index * 70),
+                    child: HoverLift(
+                      borderRadius: 0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24,
+                          horizontal: 10,
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              item.name,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: AppColors.border),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                item.name,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  letterSpacing: 2,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                item.detail,
+                                style: const TextStyle(color: AppColors.body),
+                              ),
+                            ),
+                            Text(
+                              item.price,
                               style: const TextStyle(
-                                fontSize: 16,
-                                letterSpacing: 2,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              item.detail,
-                              style: const TextStyle(color: AppColors.body),
-                            ),
-                          ),
-                          Text(
-                            item.price,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
