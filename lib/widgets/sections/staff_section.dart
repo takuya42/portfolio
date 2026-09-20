@@ -43,38 +43,46 @@ class StaffSection extends StatelessWidget {
             itemBuilder: (context, index) {
               final staff = SalonData.staff[index];
 
-              return HoverLift(
-                borderRadius: 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: SalonImage(
-                        assetPath: AppAssets.staff[index],
-                        semanticLabel: '${staff.name}のプロフィール写真',
-                        label: 'PORTRAIT',
+              return RevealOnScroll(
+                delay: Duration(milliseconds: index * 100),
+                child: HoverLift(
+                  borderRadius: 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: HoverMedia(
+                          child: SalonImage(
+                            assetPath: AppAssets.staff[index],
+                            semanticLabel: '${staff.name}のプロフィール写真',
+                            label: 'PORTRAIT',
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 18),
-                    Text(
-                      staff.role.toUpperCase(),
-                      style: const TextStyle(
-                        color: AppColors.accent,
-                        fontSize: 10,
-                        letterSpacing: 2,
+                      const SizedBox(height: 18),
+                      Text(
+                        staff.role.toUpperCase(),
+                        style: const TextStyle(
+                          color: AppColors.accent,
+                          fontSize: 10,
+                          letterSpacing: 2,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 7),
-                    Text(
-                      staff.name,
-                      style: const TextStyle(fontSize: 19, letterSpacing: 1),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      staff.bio,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+                      const SizedBox(height: 7),
+                      Text(
+                        staff.name,
+                        style: const TextStyle(
+                          fontSize: 19,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        staff.bio,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

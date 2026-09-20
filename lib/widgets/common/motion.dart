@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/app_colors.dart';
+
 /// Fades and lifts its child the first time it enters the viewport.
 ///
 /// No controller is kept alive after the entrance animation, and users who
@@ -140,6 +142,50 @@ class _HoverLiftState extends State<HoverLift> {
               : const [],
         ),
         child: widget.child,
+      ),
+    );
+  }
+}
+
+/// Gently zooms media and washes it with a warm translucent overlay on hover.
+class HoverMedia extends StatefulWidget {
+  const HoverMedia({required this.child, super.key});
+
+  final Widget child;
+
+  @override
+  State<HoverMedia> createState() => _HoverMediaState();
+}
+
+class _HoverMediaState extends State<HoverMedia> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+    final active = _hovered && !reduceMotion;
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: ClipRect(
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            AnimatedScale(
+              scale: active ? 1.035 : 1,
+              duration: const Duration(milliseconds: 450),
+              curve: Curves.easeOutCubic,
+              child: widget.child,
+            ),
+            IgnorePointer(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 350),
+                color: AppColors.accent.withValues(alpha: active ? .08 : 0),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

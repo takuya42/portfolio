@@ -38,10 +38,12 @@ class StyleSection extends StatelessWidget {
             ),
             itemBuilder: (context, index) => RevealOnScroll(
               delay: Duration(milliseconds: index * 80),
-              child: SalonImage(
-                assetPath: AppAssets.styles[index],
-                semanticLabel: 'ヘアスタイル ${index + 1}',
-                label: 'STYLE 0${index + 1}',
+              child: HoverMedia(
+                child: SalonImage(
+                  assetPath: AppAssets.styles[index],
+                  semanticLabel: 'ヘアスタイル ${index + 1}',
+                  label: 'STYLE 0${index + 1}',
+                ),
               ),
             ),
           ),

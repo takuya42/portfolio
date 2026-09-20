@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../../core/app_colors.dart';
@@ -62,11 +64,23 @@ class _HeaderState extends State<Header> {
       toolbarHeight: context.isMobile ? 68 : 82,
       automaticallyImplyLeading: false,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: _isScrolled
-          ? AppColors.white.withValues(alpha: .96)
-          : AppColors.ivory,
+      backgroundColor: Colors.transparent,
       shadowColor: const Color(0x18292724),
       elevation: _isScrolled ? 3 : 0,
+      flexibleSpace: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: _isScrolled ? 12 : 4,
+            sigmaY: _isScrolled ? 12 : 4,
+          ),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            color: _isScrolled
+                ? AppColors.white.withValues(alpha: .88)
+                : AppColors.ivory.withValues(alpha: .72),
+          ),
+        ),
+      ),
       title: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: Breakpoints.maxContent),
@@ -78,19 +92,9 @@ class _HeaderState extends State<Header> {
                 const Spacer(),
                 if (context.isDesktop) ...[
                   for (final item in navItems.skip(1))
-                    TextButton(
-                      onPressed: () => widget.onNavigate(item.$2),
-                      style: TextButton.styleFrom(
-                        foregroundColor: AppColors.charcoal,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                      ),
-                      child: Text(
-                        item.$1,
-                        style: const TextStyle(
-                          fontSize: 11,
-                          letterSpacing: 1.3,
-                        ),
-                      ),
+                    _NavigationLink(
+                      label: item.$1,
+                      onTap: () => widget.onNavigate(item.$2),
                     ),
                   const SizedBox(width: 12),
                   FilledButton(
@@ -106,6 +110,52 @@ class _HeaderState extends State<Header> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavigationLink extends StatefulWidget {
+  const _NavigationLink({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  State<_NavigationLink> createState() => _NavigationLinkState();
+}
+
+class _NavigationLinkState extends State<_NavigationLink> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: TextButton(
+        onPressed: widget.onTap,
+        style: TextButton.styleFrom(
+          foregroundColor: _hovered ? AppColors.accent : AppColors.charcoal,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.label,
+              style: const TextStyle(fontSize: 11, letterSpacing: 1.3),
+            ),
+            const SizedBox(height: 4),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 240),
+              width: _hovered ? 22 : 0,
+              height: 1,
+              color: AppColors.accent,
+            ),
+          ],
         ),
       ),
     );
