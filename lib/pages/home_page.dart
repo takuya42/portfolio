@@ -1,10 +1,107 @@
 import 'package:flutter/material.dart';
+
 import '../widgets/common/motion.dart';
-import '../widgets/sections/access_section.dart'; import '../widgets/sections/concept_section.dart'; import '../widgets/sections/contact_section.dart'; import '../widgets/sections/footer.dart'; import '../widgets/sections/header.dart'; import '../widgets/sections/hero_section.dart'; import '../widgets/sections/menu_section.dart'; import '../widgets/sections/staff_section.dart'; import '../widgets/sections/style_section.dart';
-class HomePage extends StatefulWidget {const HomePage({super.key});@override State<HomePage> createState()=>_HomePageState();}
-class _HomePageState extends State<HomePage>{
- final scaffoldKey=GlobalKey<ScaffoldState>();final scrollController=ScrollController();
- final keys=<String,GlobalKey>{for(final id in ['home','concept','menu','style','staff','access','contact'])id:GlobalKey()};
- @override void dispose(){scrollController.dispose();super.dispose();}
- Future<void> navigate(String id)async{Navigator.of(context).maybePop();final ctx=keys[id]?.currentContext;if(ctx!=null)await Scrollable.ensureVisible(ctx,duration:MediaQuery.disableAnimationsOf(context)?Duration.zero:const Duration(milliseconds:750),curve:Curves.easeInOutCubic,alignment:.02);}
- @override Widget build(BuildContext context)=>Scaffold(key:scaffoldKey,endDrawer:SalonDrawer(onNavigate:navigate),body:CustomScrollView(controller:scrollController,slivers:[Header(scrollController:scrollController,onMenuPressed:()=>scaffoldKey.currentState?.openEndDrawer(),onNavigate:navigate),SliverList.list(children:[KeyedSubtree(key:keys['home'],child:HeroSection(onContactTap:()=>navigate('contact'))),RevealOnScroll(child:ConceptSection(sectionKey:keys['concept']!)),RevealOnScroll(child:MenuSection(sectionKey:keys['menu']!)),RevealOnScroll(child:StyleSection(sectionKey:keys['style']!)),RevealOnScroll(child:StaffSection(sectionKey:keys['staff']!)),RevealOnScroll(child:AccessSection(sectionKey:keys['access']!)),RevealOnScroll(child:ContactSection(sectionKey:keys['contact']!)),Footer(onNavigate:navigate)])]));}
+import '../widgets/sections/access_section.dart';
+import '../widgets/sections/concept_section.dart';
+import '../widgets/sections/contact_section.dart';
+import '../widgets/sections/footer.dart';
+import '../widgets/sections/header.dart';
+import '../widgets/sections/hero_section.dart';
+import '../widgets/sections/menu_section.dart';
+import '../widgets/sections/staff_section.dart';
+import '../widgets/sections/style_section.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scrollController = ScrollController();
+  final _sectionKeys = <String, GlobalKey>{
+    for (final id in [
+      'home',
+      'concept',
+      'menu',
+      'style',
+      'staff',
+      'access',
+      'contact',
+    ])
+      id: GlobalKey(),
+  };
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _navigateToSection(String id) async {
+    Navigator.of(context).maybePop();
+    final sectionContext = _sectionKeys[id]?.currentContext;
+
+    if (sectionContext != null) {
+      await Scrollable.ensureVisible(
+        sectionContext,
+        duration: MediaQuery.disableAnimationsOf(context)
+            ? Duration.zero
+            : const Duration(milliseconds: 750),
+        curve: Curves.easeInOutCubic,
+        alignment: .02,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: SalonDrawer(onNavigate: _navigateToSection),
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          Header(
+            scrollController: _scrollController,
+            onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+            onNavigate: _navigateToSection,
+          ),
+          SliverList.list(
+            children: [
+              KeyedSubtree(
+                key: _sectionKeys['home'],
+                child: HeroSection(
+                  onContactTap: () => _navigateToSection('contact'),
+                ),
+              ),
+              RevealOnScroll(
+                child: ConceptSection(
+                  sectionKey: _sectionKeys['concept']!,
+                ),
+              ),
+              RevealOnScroll(
+                child: MenuSection(sectionKey: _sectionKeys['menu']!),
+              ),
+              RevealOnScroll(
+                child: StyleSection(sectionKey: _sectionKeys['style']!),
+              ),
+              RevealOnScroll(
+                child: StaffSection(sectionKey: _sectionKeys['staff']!),
+              ),
+              RevealOnScroll(
+                child: AccessSection(sectionKey: _sectionKeys['access']!),
+              ),
+              RevealOnScroll(
+                child: ContactSection(sectionKey: _sectionKeys['contact']!),
+              ),
+              Footer(onNavigate: _navigateToSection),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

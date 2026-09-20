@@ -80,11 +80,15 @@ class _RevealOnScrollState extends State<RevealOnScroll> {
     final shown = _visible || reduceMotion;
     return AnimatedOpacity(
       opacity: shown ? 1 : 0,
-      duration: reduceMotion ? Duration.zero : const Duration(milliseconds: 650),
+      duration: reduceMotion
+          ? Duration.zero
+          : const Duration(milliseconds: 650),
       curve: Curves.easeOutCubic,
       child: AnimatedSlide(
         offset: shown ? Offset.zero : Offset(0, widget.offset / 100),
-        duration: reduceMotion ? Duration.zero : const Duration(milliseconds: 650),
+        duration: reduceMotion
+            ? Duration.zero
+            : const Duration(milliseconds: 650),
         curve: Curves.easeOutCubic,
         child: widget.child,
       ),
@@ -126,7 +130,13 @@ class _HoverLiftState extends State<HoverLift> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.borderRadius),
           boxShadow: active
-              ? const [BoxShadow(color: Color(0x22123C49), blurRadius: 24, offset: Offset(0, 10))]
+              ? const [
+                  BoxShadow(
+                    color: Color(0x22123C49),
+                    blurRadius: 24,
+                    offset: Offset(0, 10),
+                  ),
+                ]
               : const [],
         ),
         child: widget.child,

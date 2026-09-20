@@ -42,8 +42,12 @@ class SectionHeading extends StatelessWidget {
           title,
           textAlign: align,
           style: context.isMobile
-              ? Theme.of(context).textTheme.headlineMedium?.copyWith(color: onDark ? Colors.white : AppColors.charcoal)
-              : Theme.of(context).textTheme.headlineLarge?.copyWith(color: onDark ? Colors.white : AppColors.charcoal),
+              ? Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: onDark ? Colors.white : AppColors.charcoal,
+                )
+              : Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  color: onDark ? Colors.white : AppColors.charcoal,
+                ),
         ),
         if (description != null) ...[
           const SizedBox(height: 18),
@@ -52,7 +56,9 @@ class SectionHeading extends StatelessWidget {
             child: Text(
               description!,
               textAlign: align,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: onDark ? AppColors.sand : AppColors.body),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: onDark ? AppColors.sand : AppColors.body,
+              ),
             ),
           ),
         ],
