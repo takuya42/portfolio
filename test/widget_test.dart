@@ -10,7 +10,13 @@ void main() {
     expect(find.text('〇〇 SALON'), findsWidgets);
     expect(find.textContaining('毎日に、'), findsOneWidget);
     expect(find.text('CONCEPT'), findsOneWidget);
-    expect(find.text('HERO PHOTO'), findsOneWidget);
+    expect(
+      find.image(const AssetImage('assets/images/Image.png')),
+      findsOneWidget,
+    );
+    expect(find.text('HERO PHOTO'), findsNothing);
+    expect(find.text('PHOTO PLACEHOLDER'), findsNothing);
+    expect(find.byIcon(Icons.menu_rounded), findsNothing);
   });
 
   testWidgets('スマートフォン幅ではメニューボタンを表示する', (tester) async {
