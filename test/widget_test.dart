@@ -14,6 +14,10 @@ void main() {
       find.image(const AssetImage('assets/images/Image.png')),
       findsOneWidget,
     );
+    expect(
+      find.image(const AssetImage('assets/images/hero_background.png')),
+      findsOneWidget,
+    );
     expect(find.text('HERO PHOTO'), findsNothing);
     expect(find.text('PHOTO PLACEHOLDER'), findsNothing);
     expect(find.byIcon(Icons.menu_rounded), findsNothing);
