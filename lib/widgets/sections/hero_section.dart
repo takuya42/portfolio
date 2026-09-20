@@ -102,50 +102,88 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildVisual(BuildContext context) {
-    return RevealOnScroll(
-      delay: const Duration(milliseconds: 460),
-      offset: 18,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          AspectRatio(
-            aspectRatio: context.isMobile ? .82 : 1.12,
-            child: const SalonImage(
-              assetPath: AppAssets.hero,
-              semanticLabel: 'サロンのメインビジュアル',
-              label: 'HERO PHOTO',
-            ),
-          ),
-          Positioned(
-            left: context.isMobile ? 14 : -28,
-            top: context.isMobile ? 16 : 34,
-            child: const _VerticalCaption(),
-          ),
-          Positioned(
-            right: context.isMobile ? 12 : -20,
-            bottom: -22,
-            child: Container(
-              color: AppColors.charcoal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 14,
-              ),
-              child: const Text(
-                'BEAUTY IN YOUR WAY',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  letterSpacing: 2.4,
-                ),
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        AspectRatio(
+          aspectRatio: context.isMobile ? .82 : 1.18,
+          child: const ClipRect(
+            child: _HeroImageEntrance(
+              child: SalonImage(
+                assetPath: AppAssets.hero,
+                semanticLabel: 'サロンのメインビジュアル',
+                fit: BoxFit.cover,
+                alignment: Alignment(.35, 0),
               ),
             ),
           ),
-          Positioned(
-            right: context.isMobile ? 16 : -34,
-            top: context.isMobile ? -14 : 18,
-            child: Container(width: 76, height: 1, color: AppColors.accent),
+        ),
+        Positioned(
+          left: context.isMobile ? 14 : -28,
+          top: context.isMobile ? 16 : 34,
+          child: const _VerticalCaption(),
+        ),
+        Positioned(
+          right: context.isMobile ? 12 : -20,
+          bottom: -22,
+          child: Container(
+            color: AppColors.charcoal,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+            child: const Text(
+              'BEAUTY IN YOUR WAY',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                letterSpacing: 2.4,
+              ),
+            ),
           ),
-        ],
+        ),
+        Positioned(
+          right: context.isMobile ? 16 : -34,
+          top: context.isMobile ? -14 : 18,
+          child: Container(width: 76, height: 1, color: AppColors.accent),
+        ),
+      ],
+    );
+  }
+}
+
+class _HeroImageEntrance extends StatefulWidget {
+  const _HeroImageEntrance({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_HeroImageEntrance> createState() => _HeroImageEntranceState();
+}
+
+class _HeroImageEntranceState extends State<_HeroImageEntrance> {
+  bool _visible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() => _visible = true);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final visible = _visible || reduceMotion;
+    final duration = reduceMotion ? Duration.zero : const Duration(seconds: 2);
+
+    return AnimatedOpacity(
+      opacity: visible ? 1 : 0,
+      duration: duration,
+      curve: Curves.easeOutCubic,
+      child: AnimatedScale(
+        scale: visible ? 1 : 1.03,
+        duration: duration,
+        curve: Curves.easeOutCubic,
+        child: widget.child,
       ),
     );
   }

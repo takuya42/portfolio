@@ -9,12 +9,14 @@ class SalonImage extends StatelessWidget {
     super.key,
     this.label = 'SALON IMAGE',
     this.fit = BoxFit.cover,
+    this.alignment = Alignment.center,
   });
 
   final String? assetPath;
   final String semanticLabel;
   final String label;
   final BoxFit fit;
+  final AlignmentGeometry alignment;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class SalonImage extends StatelessWidget {
       return Image.asset(
         path,
         fit: fit,
+        alignment: alignment,
         width: double.infinity,
         height: double.infinity,
         semanticLabel: semanticLabel,
