@@ -184,7 +184,7 @@ class ReservationCalendar extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          const Row(
+          Row(
             children: [
               for (final day in ['日', '月', '火', '水', '木', '金', '土'])
                 Expanded(child: Center(child: Text(day))),
