@@ -11,28 +11,75 @@ const _navItems = <(String, String)>[
   ('アクセス', 'access'),
 ];
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   const Header({
     required this.onMenuPressed,
     required this.onNavigate,
+    required this.scrollController,
     super.key,
   });
 
   final VoidCallback onMenuPressed;
   final ValueChanged<String> onNavigate;
+  final ScrollController scrollController;
+
+  @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  bool _scrolled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void didUpdateWidget(covariant Header oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.scrollController != widget.scrollController) {
+      oldWidget.scrollController.removeListener(_onScroll);
+      widget.scrollController.addListener(_onScroll);
+    }
+  }
+
+  void _onScroll() {
+    final next = widget.scrollController.hasClients && widget.scrollController.offset > 12;
+    if (next != _scrolled) setState(() => _scrolled = next);
+  }
+
+  @override
+  void dispose() {
+    widget.scrollController.removeListener(_onScroll);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
       floating: true,
-      backgroundColor: Colors.white.withValues(alpha: .97),
+      backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       shadowColor: const Color(0x1A123C49),
-      elevation: 1,
+      elevation: 0,
       toolbarHeight: context.isMobile ? 70 : 82,
       titleSpacing: 0,
       automaticallyImplyLeading: false,
+      flexibleSpace: AnimatedContainer(
+        duration: MediaQuery.disableAnimationsOf(context)
+            ? Duration.zero
+            : const Duration(milliseconds: 240),
+        curve: Curves.easeOut,
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: _scrolled ? .98 : .92),
+          boxShadow: _scrolled
+              ? const [BoxShadow(color: Color(0x1F123C49), blurRadius: 18, offset: Offset(0, 5))]
+              : const [],
+        ),
+      ),
       title: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: Breakpoints.maxContent),
@@ -45,7 +92,7 @@ class Header extends StatelessWidget {
                 if (context.isDesktop) ...[
                   for (final item in _navItems)
                     TextButton(
-                      onPressed: () => onNavigate(item.$2),
+                      onPressed: () => widget.onNavigate(item.$2),
                       style: TextButton.styleFrom(
                         foregroundColor: AppColors.ink,
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
@@ -54,14 +101,14 @@ class Header extends StatelessWidget {
                     ),
                   const SizedBox(width: 10),
                   FilledButton.icon(
-                    onPressed: () => onNavigate('contact'),
+                    onPressed: () => widget.onNavigate('contact'),
                     icon: const Icon(Icons.mail_outline_rounded, size: 19),
                     label: const Text('お問い合わせ'),
                   ),
                 ] else
                   IconButton(
                     tooltip: 'メニューを開く',
-                    onPressed: onMenuPressed,
+                    onPressed: widget.onMenuPressed,
                     icon: const Icon(Icons.menu_rounded, size: 30),
                   ),
               ],

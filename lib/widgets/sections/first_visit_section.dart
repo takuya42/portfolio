@@ -4,6 +4,7 @@ import '../../core/app_colors.dart';
 import '../../core/responsive.dart';
 import '../common/section_container.dart';
 import '../common/section_heading.dart';
+import '../common/motion.dart';
 
 class FirstVisitSection extends StatelessWidget {
   const FirstVisitSection({required this.sectionKey, super.key});
@@ -44,7 +45,7 @@ class FirstVisitSection extends StatelessWidget {
               itemCount: _steps.length,
               itemBuilder: (context, index) {
                 final step = _steps[index];
-                return Container(
+                return RevealOnScroll(delay: Duration(milliseconds: index * 80), child: HoverLift(child: Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: .09),
@@ -67,7 +68,7 @@ class FirstVisitSection extends StatelessWidget {
                       Text(step.$3, style: const TextStyle(color: Color(0xFFD6E8ED), height: 1.7)),
                     ],
                   ),
-                );
+                )));
               },
             ),
           ],
