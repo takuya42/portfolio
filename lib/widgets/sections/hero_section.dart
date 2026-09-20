@@ -119,6 +119,13 @@ class HeroSection extends StatelessWidget {
           ),
         ),
         Positioned(
+          left: context.isMobile ? -34 : -58,
+          top: context.isMobile ? -28 : -46,
+          width: context.isMobile ? 130 : 190,
+          height: context.isMobile ? 155 : 220,
+          child: const HeroForegroundLeaves(),
+        ),
+        Positioned(
           left: context.isMobile ? 14 : -28,
           top: context.isMobile ? 16 : 34,
           child: const _VerticalCaption(),
