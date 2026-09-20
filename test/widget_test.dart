@@ -30,4 +30,32 @@ void main() {
     expect(find.byIcon(Icons.menu_rounded), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('ヘッダーから予約ページへ遷移して戻れる', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1440, 1000));
+    await tester.pumpWidget(const SalonApp());
+
+    await tester.tap(find.text('RESERVATION'));
+    await tester.pump();
+
+    expect(find.text('ご予約'), findsOneWidget);
+    expect(find.text('メニューを選択'), findsOneWidget);
+    expect(find.text('カット＋カラー'), findsOneWidget);
+
+    await tester.pageBack();
+    await tester.pump();
+
+    expect(find.textContaining('毎日に、'), findsOneWidget);
+  });
+
+  testWidgets('Heroの予約ボタンから予約ページへ遷移する', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(390, 844));
+    await tester.pumpWidget(const SalonApp());
+
+    await tester.tap(find.text('ご予約はこちら'));
+    await tester.pump();
+
+    expect(find.text('ご希望のメニュー・日時をお選びください。'), findsOneWidget);
+    expect(find.text('予約内容を確認する'), findsOneWidget);
+  });
 }

@@ -56,11 +56,18 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void _openReservation() {
+    Navigator.of(context).pushNamed('/reservation');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: SalonDrawer(onNavigate: _navigateToSection),
+      endDrawer: SalonDrawer(
+        onNavigate: _navigateToSection,
+        onReservationPressed: _openReservation,
+      ),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
@@ -68,13 +75,14 @@ class _HomePageState extends State<HomePage> {
             scrollController: _scrollController,
             onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
             onNavigate: _navigateToSection,
+            onReservationPressed: _openReservation,
           ),
           SliverList.list(
             children: [
               KeyedSubtree(
                 key: _sectionKeys['home'],
                 child: HeroSection(
-                  onContactTap: () => _navigateToSection('contact'),
+                  onContactTap: _openReservation,
                 ),
               ),
               RevealOnScroll(
