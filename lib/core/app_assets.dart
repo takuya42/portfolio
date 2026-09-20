@@ -1,7 +1,6 @@
 abstract final class AppAssets {
-  // 実画像を追加したら、nullを対応するパスへ変更します。
-  // 例: static const String? hero = 'assets/images/hero.webp';
+  // 写真を追加したら null を 'assets/images/hero.webp' のように変更します。
   static const String? hero = null;
-  static const String? director = null;
-  static const String? clinic = null;
+  static const List<String?> styles = [null, null, null, null, null, null];
+  static const List<String?> staff = [null, null, null];
 }

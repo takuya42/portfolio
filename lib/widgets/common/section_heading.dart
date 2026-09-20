@@ -31,10 +31,10 @@ class SectionHeading extends StatelessWidget {
           eyebrow.toUpperCase(),
           textAlign: align,
           style: TextStyle(
-            color: onDark ? const Color(0xFF83D7E3) : AppColors.primary,
+            color: onDark ? AppColors.sand : AppColors.accent,
             fontSize: 13,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 2,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 3,
           ),
         ),
         const SizedBox(height: 12),
@@ -42,8 +42,8 @@ class SectionHeading extends StatelessWidget {
           title,
           textAlign: align,
           style: context.isMobile
-              ? Theme.of(context).textTheme.headlineMedium?.copyWith(color: onDark ? Colors.white : AppColors.ink)
-              : Theme.of(context).textTheme.headlineLarge?.copyWith(color: onDark ? Colors.white : AppColors.ink),
+              ? Theme.of(context).textTheme.headlineMedium?.copyWith(color: onDark ? Colors.white : AppColors.charcoal)
+              : Theme.of(context).textTheme.headlineLarge?.copyWith(color: onDark ? Colors.white : AppColors.charcoal),
         ),
         if (description != null) ...[
           const SizedBox(height: 18),
@@ -52,7 +52,7 @@ class SectionHeading extends StatelessWidget {
             child: Text(
               description!,
               textAlign: align,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: onDark ? const Color(0xFFD6E8ED) : AppColors.body),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: onDark ? AppColors.sand : AppColors.body),
             ),
           ),
         ],
