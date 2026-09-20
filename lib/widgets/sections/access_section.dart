@@ -32,13 +32,20 @@ class AccessSection extends StatelessWidget {
                     _buildMapPlaceholder(),
                   ],
                 )
-              : Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(child: _buildSalonInformation(context)),
-                    const SizedBox(width: 55),
-                    Expanded(child: _buildMapPlaceholder()),
-                  ],
+              : SizedBox(
+                  // A Column inside the page's SliverToBoxAdapter measures its
+                  // children with an unbounded height. Give this side-by-side
+                  // layout the map's intended height so the Row can safely
+                  // stretch both panels without changing their alignment.
+                  height: 330,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(child: _buildSalonInformation(context)),
+                      const SizedBox(width: 55),
+                      Expanded(child: _buildMapPlaceholder()),
+                    ],
+                  ),
                 ),
         ],
       ),

@@ -40,6 +40,23 @@ void main() {
     expect(title.softWrap, isFalse);
   });
 
+  testWidgets('PC幅でACCESSを有限の高さにレイアウトする', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1440, 1000));
+    await tester.pumpWidget(const SalonApp());
+
+    await tester.scrollUntilVisible(
+      find.text('MAP SPACE'),
+      600,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('SALON / ACCESS'), findsOneWidget);
+    expect(find.text('MAP SPACE'), findsOneWidget);
+    expect(tester.getSize(find.text('MAP SPACE')).height, greaterThan(0));
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('最下部から上方向へスクロールできる', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1440, 1000));
     await tester.pumpWidget(const SalonApp());
