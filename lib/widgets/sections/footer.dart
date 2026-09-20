@@ -1,3 +1,118 @@
-import 'package:flutter/material.dart'; import '../../core/app_colors.dart'; import '../../core/responsive.dart'; import '../../core/salon_data.dart'; import 'header.dart';
-class Footer extends StatelessWidget {const Footer({required this.onNavigate,super.key});final ValueChanged<String> onNavigate;
- @override Widget build(BuildContext context)=>ColoredBox(color:const Color(0xFF1F1E1C),child:Center(child:ConstrainedBox(constraints:const BoxConstraints(maxWidth:Breakpoints.maxContent),child:Padding(padding:EdgeInsets.symmetric(horizontal:context.horizontalPadding,vertical:60),child:Column(children:[Wrap(spacing:60,runSpacing:32,alignment:WrapAlignment.spaceBetween,children:[const SizedBox(width:260,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(SalonData.name,style:TextStyle(color:Colors.white,fontSize:23,letterSpacing:2)),SizedBox(height:20),Text(SalonData.address,style:TextStyle(color:AppColors.greige,height:1.8)),Text(SalonData.hours,style:TextStyle(color:AppColors.greige,height:1.8))])),Wrap(spacing:22,runSpacing:8,children:[for(final item in navItems.skip(1))TextButton(onPressed:()=>onNavigate(item.$2),child:Text(item.$1,style:const TextStyle(color:AppColors.sand,fontSize:10,letterSpacing:1.3)))]),const Row(mainAxisSize:MainAxisSize.min,children:[Icon(Icons.camera_alt_outlined,color:AppColors.sand),SizedBox(width:16),Icon(Icons.alternate_email,color:AppColors.sand)])]),const SizedBox(height:45),const Divider(color:Color(0xFF3E3B37)),const SizedBox(height:22),const Text('当サイトはポートフォリオ用に制作した架空の美容室サイトです。',textAlign:TextAlign.center,style:TextStyle(color:AppColors.greige,fontSize:11)),const SizedBox(height:8),const Text('© 2026 〇〇 SALON. ALL RIGHTS RESERVED.',style:TextStyle(color:AppColors.greige,fontSize:10,letterSpacing:1))])))));}
+import 'package:flutter/material.dart';
+
+import '../../core/app_colors.dart';
+import '../../core/responsive.dart';
+import '../../core/salon_data.dart';
+import 'header.dart';
+
+class Footer extends StatelessWidget {
+  const Footer({required this.onNavigate, super.key});
+
+  final ValueChanged<String> onNavigate;
+
+  @override
+  Widget build(BuildContext context) {
+    return ColoredBox(
+      color: const Color(0xFF1F1E1C),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: Breakpoints.maxContent),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: context.horizontalPadding,
+              vertical: 60,
+            ),
+            child: Column(
+              children: [
+                Wrap(
+                  spacing: 60,
+                  runSpacing: 32,
+                  alignment: WrapAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(
+                      width: 260,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            SalonData.name,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 23,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            SalonData.address,
+                            style: TextStyle(
+                              color: AppColors.greige,
+                              height: 1.8,
+                            ),
+                          ),
+                          Text(
+                            SalonData.hours,
+                            style: TextStyle(
+                              color: AppColors.greige,
+                              height: 1.8,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Wrap(
+                      spacing: 22,
+                      runSpacing: 8,
+                      children: [
+                        for (final item in navItems.skip(1))
+                          TextButton(
+                            onPressed: () => onNavigate(item.$2),
+                            child: Text(
+                              item.$1,
+                              style: const TextStyle(
+                                color: AppColors.sand,
+                                fontSize: 10,
+                                letterSpacing: 1.3,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.camera_alt_outlined,
+                          color: AppColors.sand,
+                        ),
+                        SizedBox(width: 16),
+                        Icon(Icons.alternate_email, color: AppColors.sand),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 45),
+                const Divider(color: Color(0xFF3E3B37)),
+                const SizedBox(height: 22),
+                const Text(
+                  '当サイトはポートフォリオ用に制作した架空の美容室サイトです。',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.greige, fontSize: 11),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  '© 2026 〇〇 SALON. ALL RIGHTS RESERVED.',
+                  style: TextStyle(
+                    color: AppColors.greige,
+                    fontSize: 10,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

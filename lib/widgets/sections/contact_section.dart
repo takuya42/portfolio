@@ -1,3 +1,85 @@
-import 'package:flutter/material.dart'; import '../../core/app_colors.dart'; import '../../core/salon_data.dart'; import '../common/motion.dart'; import '../common/section_container.dart';
-class ContactSection extends StatelessWidget {const ContactSection({required this.sectionKey,super.key});final GlobalKey sectionKey;
- @override Widget build(BuildContext context)=>SectionContainer(sectionKey:sectionKey,backgroundColor:AppColors.charcoal,child:Column(children:[const Text('RESERVATION',style:TextStyle(color:AppColors.sand,fontSize:12,letterSpacing:4)),const SizedBox(height:20),Text('ご予約・お問い合わせ',textAlign:TextAlign.center,style:Theme.of(context).textTheme.headlineLarge?.copyWith(color:Colors.white)),const SizedBox(height:18),const Text('あなたの新しいスタイルを、一緒に見つけましょう。',textAlign:TextAlign.center,style:TextStyle(color:AppColors.sand,height:1.8)),const SizedBox(height:36),Wrap(spacing:14,runSpacing:14,alignment:WrapAlignment.center,children:[HoverLift(borderRadius:2,child:FilledButton(style:FilledButton.styleFrom(backgroundColor:AppColors.white,foregroundColor:AppColors.charcoal),onPressed:(){},child:const Text('WEB予約'))),HoverLift(borderRadius:2,child:OutlinedButton(style:OutlinedButton.styleFrom(foregroundColor:Colors.white,side:const BorderSide(color:AppColors.greige)),onPressed:(){},child:const Text('お問い合わせ')))]),const SizedBox(height:25),const Text('${SalonData.phone}  /  受付 10:00–19:00',style:TextStyle(color:AppColors.greige,fontSize:12,letterSpacing:1))]));}
+import 'package:flutter/material.dart';
+
+import '../../core/app_colors.dart';
+import '../../core/salon_data.dart';
+import '../common/motion.dart';
+import '../common/section_container.dart';
+
+class ContactSection extends StatelessWidget {
+  const ContactSection({required this.sectionKey, super.key});
+
+  final GlobalKey sectionKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionContainer(
+      sectionKey: sectionKey,
+      backgroundColor: AppColors.charcoal,
+      child: Column(
+        children: [
+          const Text(
+            'RESERVATION',
+            style: TextStyle(
+              color: AppColors.sand,
+              fontSize: 12,
+              letterSpacing: 4,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'ご予約・お問い合わせ',
+            textAlign: TextAlign.center,
+            style: Theme.of(
+              context,
+            ).textTheme.headlineLarge?.copyWith(color: Colors.white),
+          ),
+          const SizedBox(height: 18),
+          const Text(
+            'あなたの新しいスタイルを、一緒に見つけましょう。',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: AppColors.sand, height: 1.8),
+          ),
+          const SizedBox(height: 36),
+          Wrap(
+            spacing: 14,
+            runSpacing: 14,
+            alignment: WrapAlignment.center,
+            children: [
+              HoverLift(
+                borderRadius: 2,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.white,
+                    foregroundColor: AppColors.charcoal,
+                  ),
+                  onPressed: () {},
+                  child: const Text('WEB予約'),
+                ),
+              ),
+              HoverLift(
+                borderRadius: 2,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    side: const BorderSide(color: AppColors.greige),
+                  ),
+                  onPressed: () {},
+                  child: const Text('お問い合わせ'),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          const Text(
+            '${SalonData.phone}  /  受付 10:00–19:00',
+            style: TextStyle(
+              color: AppColors.greige,
+              fontSize: 12,
+              letterSpacing: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
