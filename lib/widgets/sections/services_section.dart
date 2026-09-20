@@ -4,6 +4,7 @@ import '../../core/app_colors.dart';
 import '../../core/responsive.dart';
 import '../common/section_container.dart';
 import '../common/section_heading.dart';
+import '../common/motion.dart';
 
 class ServicesSection extends StatelessWidget {
   const ServicesSection({required this.sectionKey, super.key});
@@ -42,7 +43,10 @@ class ServicesSection extends StatelessWidget {
             itemCount: _services.length,
             itemBuilder: (context, index) {
               final service = _services[index];
-              return _ServiceCard(icon: service.$1, title: service.$2, description: service.$3);
+              return RevealOnScroll(
+                delay: Duration(milliseconds: index * 70),
+                child: HoverLift(child: _ServiceCard(icon: service.$1, title: service.$2, description: service.$3)),
+              );
             },
           ),
         ],

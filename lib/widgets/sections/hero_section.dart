@@ -5,6 +5,7 @@ import '../../core/app_colors.dart';
 import '../../core/responsive.dart';
 import '../common/clinic_image.dart';
 import '../common/section_container.dart';
+import '../common/motion.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({required this.onContactTap, super.key});
@@ -40,16 +41,18 @@ class HeroSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          decoration: BoxDecoration(color: AppColors.paleBlue, borderRadius: BorderRadius.circular(30)),
-          child: const Text(
-            '地域に寄り添う、身近な接骨院',
-            style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700, fontSize: 13),
+        RevealOnScroll(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(color: AppColors.paleBlue, borderRadius: BorderRadius.circular(30)),
+            child: const Text(
+              '地域に寄り添う、身近な接骨院',
+              style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700, fontSize: 13),
+            ),
           ),
         ),
         const SizedBox(height: 22),
-        Text.rich(
+        RevealOnScroll(delay: const Duration(milliseconds: 100), child: Text.rich(
           TextSpan(
             children: [
               const TextSpan(text: '地域の皆さまの\n'),
@@ -58,29 +61,29 @@ class HeroSection extends StatelessWidget {
             ],
           ),
           style: headlineStyle,
-        ),
+        )),
         const SizedBox(height: 20),
-        Text(
+        RevealOnScroll(delay: const Duration(milliseconds: 220), child: Text(
           '肩こり・腰痛・スポーツによる身体のお悩みに。\n一人ひとりに寄り添い、丁寧な施術でサポートします。',
           style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        )),
         const SizedBox(height: 28),
-        Wrap(
+        RevealOnScroll(delay: const Duration(milliseconds: 340), child: Wrap(
           spacing: 12,
           runSpacing: 12,
           children: [
-            FilledButton.icon(
+            HoverLift(borderRadius: 12, child: FilledButton.icon(
               onPressed: onContactTap,
               icon: const Icon(Icons.calendar_month_outlined),
               label: const Text('ご予約・お問い合わせ'),
-            ),
-            OutlinedButton.icon(
+            )),
+            HoverLift(borderRadius: 12, child: OutlinedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.phone_outlined),
               label: const Text('000-0000-0000'),
-            ),
+            )),
           ],
-        ),
+        )),
         const SizedBox(height: 26),
         const Wrap(
           spacing: 20,

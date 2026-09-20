@@ -4,6 +4,7 @@ import '../../core/app_colors.dart';
 import '../../core/responsive.dart';
 import '../common/section_container.dart';
 import '../common/section_heading.dart';
+import '../common/motion.dart';
 
 class ConcernsSection extends StatelessWidget {
   const ConcernsSection({required this.sectionKey, super.key});
@@ -40,7 +41,7 @@ class ConcernsSection extends StatelessWidget {
             itemCount: _concerns.length,
             itemBuilder: (context, index) {
               final concern = _concerns[index];
-              return Container(
+              return RevealOnScroll(delay: Duration(milliseconds: index * 70), child: HoverLift(child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: AppColors.softBlue,
@@ -58,7 +59,7 @@ class ConcernsSection extends StatelessWidget {
                     Expanded(child: Text(concern.$2, style: const TextStyle(color: AppColors.ink, fontWeight: FontWeight.w700, fontSize: 16))),
                   ],
                 ),
-              );
+              )));
             },
           ),
         ],

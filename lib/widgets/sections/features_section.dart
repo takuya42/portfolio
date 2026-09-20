@@ -5,6 +5,7 @@ import '../../core/responsive.dart';
 import '../common/info_card.dart';
 import '../common/section_container.dart';
 import '../common/section_heading.dart';
+import '../common/motion.dart';
 
 class FeaturesSection extends StatelessWidget {
   const FeaturesSection({super.key});
@@ -35,7 +36,12 @@ class FeaturesSection extends StatelessWidget {
             itemCount: _features.length,
             itemBuilder: (context, index) {
               final feature = _features[index];
-              return InfoCard(icon: feature.$1, title: feature.$2, description: feature.$3, number: '0${index + 1}');
+              return RevealOnScroll(
+                delay: Duration(milliseconds: index * 90),
+                child: HoverLift(
+                  child: InfoCard(icon: feature.$1, title: feature.$2, description: feature.$3, number: '0${index + 1}'),
+                ),
+              );
             },
           ),
         ],
